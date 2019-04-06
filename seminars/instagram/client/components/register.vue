@@ -6,7 +6,7 @@
                  <input type="password" class="form-control" placeholder="Password" v-model="passwordA">
                   <input type="password" class="form-control" placeholder="Password again" v-model="passwordB">
                   <button type="button" class="btn btn-danger btn-block" v-on:click="register">
-                    Заретстрироваться
+                    Зарегистрироваться
                     </button>
                 </form>
             </div>
@@ -26,7 +26,14 @@
         methods: {
             register: function() {
                 if (this.passwordA === this.passwordB) {
-
+                    let promise = this.$auth.register(this.username, this.passwordA);
+                    promise.then(function() {
+                        console.log("Success");
+                        this.$router.push("/login");
+                    });
+                    promise.catch(function(error) {
+                        alert("Error: " + error);
+                    });
                 }
             }
         }
